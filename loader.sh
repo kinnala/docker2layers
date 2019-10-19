@@ -58,3 +58,6 @@ echo "Creating and loading image.tar ..."
 tar -cf /tmp/image.tar *
 docker load -i /tmp/image.tar
 cd -
+
+echo "Removing temporary files ..."
+rm -r /tmp/image*

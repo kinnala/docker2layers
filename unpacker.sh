@@ -21,3 +21,6 @@ echo "Moving layers to '$layers_cache_dir' ..."
 find $tmp_dir \
     | grep layer.tar \
     | xargs -I {} sh -c 'mv {} '$layers_cache_dir'/`sha256sum {} | cut -d " " -f 1`'
+
+echo "Removing temporary files ..."
+rm -r /tmp/image*
