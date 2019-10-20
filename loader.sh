@@ -26,7 +26,7 @@ cat $config_file \
     | xargs -I {} sh -c '{}'
 
 echo "Copying image config to '$tmp_dir' ..."
-cp $config_file $tmp_dir
+cp $config_file $tmp_dir/config.json
 
 echo "Creating manifest.json ..."
 echo "[{\"Config\":\"config.json\",\"RepoTags\":null,\"Layers\":[" >> $tmp_dir/manifest.json
