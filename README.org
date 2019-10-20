@@ -1,0 +1,4 @@
+* Unpacking and rebuilding Docker images
+
+Two arcane shell scripts for unpacking Docker images into layer blobs
+and reloading a subset of blobs into a new image.
