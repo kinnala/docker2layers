@@ -25,22 +25,6 @@ cat $config_file \
           '{ a="mkdir "tmp"/"$1" && cp "layers"/"$2" "tmp"/"$1"/layer.tar"; print a}' \
     | xargs -I {} sh -c '{}'
 
-echo "Creating layer VERSION files ..."
-ls $tmp_dir | xargs -I {} sh -c 'echo "1.0" >> '$tmp_dir'/{}/VERSION'
-
-echo "Creating layer json files ..."
-layer_dirs=$(ls $tmp_dir)
-for dir in $layer_dirs
-do
-    if [ "$dir" = "1" ]
-    then
-        echo "{\"id\":\"$dir\",\"created\":\"2019-01-01T00:00:00.000000000Z\",\"container_config\":{\"Hostname\":\"\",\"Domainname\":\"\",\"User\":\"\",\"AttachStdin\":false,\"AttachStdout\":false,\"AttachStderr\":false,\"Tty\":false,\"OpenStdin\":false,\"StdinOnce\":false,\"Env\":null,\"Cmd\":null,\"Image\":\"\",\"Volumes\":null,\"WorkingDir\":\"\",\"Entrypoint\":null,\"OnBuild\":null,\"Labels\":null}}" >> $tmp_dir/$dir/json
-    else
-        parent_dir=$(expr $dir - 1)
-        echo "{\"id\":\"$dir\",\"parent\":\"$parent_dir\",\"created\":\"2019-01-01T00:00:00.000000000Z\",\"container_config\":{\"Hostname\":\"\",\"Domainname\":\"\",\"User\":\"\",\"AttachStdin\":false,\"AttachStdout\":false,\"AttachStderr\":false,\"Tty\":false,\"OpenStdin\":false,\"StdinOnce\":false,\"Env\":null,\"Cmd\":null,\"Image\":\"\",\"Volumes\":null,\"WorkingDir\":\"\",\"Entrypoint\":null,\"OnBuild\":null,\"Labels\":null}}" >> $tmp_dir/$dir/json
-    fi
-done
-
 echo "Copying image config to '$tmp_dir' ..."
 cp $config_file $tmp_dir
 
