@@ -30,15 +30,14 @@ cp $config_file $tmp_dir/config.json
 
 echo "Creating manifest.json ..."
 echo "[{\"Config\":\"config.json\",\"RepoTags\":null,\"Layers\":[" >> $tmp_dir/manifest.json
-cd $tmp_dir
-find . \
-    | tac \
-    | grep tar \
+ls -1v $tmp_dir \
+    | grep -v json \
     | awk '{print "\""$1"\""}' \
     | paste -sd "," >> $tmp_dir/manifest.json
 echo "]}]" >> $tmp_dir/manifest.json
 
 echo "Creating and loading image.tar ..."
+cd $tmp_dir
 tar -cf /tmp/image.tar *
 docker load -i /tmp/image.tar
 cd -
